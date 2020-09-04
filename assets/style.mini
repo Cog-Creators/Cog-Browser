@@ -1,0 +1,305 @@
+.hidden {
+	visibility: hidden
+}
+
+body {
+	background-color: #020202;
+	background-image: url(/uC21aXJ7yQs.jpg?4);
+	background-position: top;
+	background-repeat: no-repeat;
+	background-size: contain;
+	margin-top: 4vw;
+	padding: 40px;
+	font-family: Roboto, sans-serif;
+	min-width: 600px;
+}
+
+.loading {
+	filter: blur(2px);
+}
+
+@media only screen and (max-width: 1000px) {
+	body {
+		background-size: 1000px;
+	}
+
+}
+
+body>div {
+	display: block;
+	max-width: 900px!important;
+	margin: 0 auto;
+	position: relative;
+	border-radius: 6px
+}
+
+body>div button {
+	position: relative;
+	height: 35px;
+	width: 35px;
+	background: 0 0;
+	border: none;
+	cursor: pointer;
+	opacity: .6;
+	border-radius: 3px;
+	color: #150000
+}
+
+body>div svg.icon {
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	height: 25px;
+	width: 25px;
+	fill: #000;
+	opacity: .6
+}
+
+body>div.nav.top {
+	margin-bottom: 10px
+}
+
+body>div.nav.top logo {
+	display: block;
+	padding: 5px;
+	font-size: 55px;
+	line-height: 35px;
+	font-family: Merienda;
+	color: #6d261c;
+	text-shadow: 1px 1px 2px rgba(0, 0, 0, .68);
+	cursor: pointer
+}
+
+body>div.nav.top logo t {
+	display: block;
+	font-size: 20px
+}
+
+body>div.nav.top button {
+	width: auto
+}
+
+body>div.nav button.right {
+	width: auto;
+	min-width: 35px;
+	float: right;
+	text-align: right;
+	padding-right: 35px;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 12px
+}
+
+body>div.nav button.right svg.icon {
+	position: absolute;
+	right: 4px;
+	left: auto
+}
+
+body>div.nav button.left {
+	float: left;
+	width: auto;
+	min-width: 35px;
+	text-align: right;
+	padding-left: 35px;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 12px
+}
+
+
+body>div.filters {
+	margin-top: 10px;
+	text-align: right;
+}
+
+body>div.filters box {
+	text-transform: uppercase;
+	font-size: 11px;
+	background: rgba(255, 255, 255, .20);
+	color: #000;
+	display: inline-block;
+	line-height: 35px;
+	padding: 0 10px;
+	border-radius: 6px;
+	cursor: pointer;
+	margin-left: 5px;
+	position: relative;
+	padding-left: 35px;
+}
+
+body>div.filters box svg {
+    top: 7px;
+    left: 9px;
+}
+
+body>div.search {
+	background: rgba(255, 255, 255, .20)
+}
+
+body>div.nav.bottom {
+	margin-top: 10px;
+	text-align: center;
+	line-height: 35px;
+	color: #fff;
+	font-size: 12px
+}
+
+body>div.nav.bottom svg.icon {
+    fill: #FFF;
+}
+
+body>div.search {
+	height: 55px
+}
+
+body>div.search input {
+	position: absolute;
+	top: 10px;
+	left: 45px;
+	right: 65px;
+	bottom: 10px;
+	border: none;
+	width: calc(100% - 10px - 35px - 20px);
+	padding: 0 10px;
+	background: 0 0;
+	outline: 0;
+	color: #6d261c;
+	font-weight: 700;
+	font-size: 24px
+}
+
+body>div.search form>svg.icon {
+	top: 15px;
+	left: 15px
+}
+
+body>div.filters button {
+	width: auto
+}
+
+body>div.search button {
+	position: absolute;
+    right: 10px;
+    top: 10px;
+    background: #ffffffba;
+    border-radius: 100%;
+}
+
+body>div.search button svg.icon {
+	position: absolute;
+	left: 8px;
+	top: 8px;
+	height: 19px;
+	width: 19px;
+	fill: #000;
+	outline: none;
+}
+
+body>div.search button.active,
+body>div.search button:hover {
+	opacity: 1
+}
+
+body>div.list {
+	margin-top: 10px;
+  padding: 1px 0;
+  background: rgba(255, 255, 255, .20);
+}
+
+body>div.list div {
+	display: block;
+	padding: 10px;
+	margin: 10px;
+	background: rgba(255, 255, 255, .95);
+	color: #000000d9;
+	box-shadow: 0 0 4px rgba(0, 0, 0, .4);
+	text-shadow: 1px 1px 1px rgba(0, 0, 0, .05);
+}
+
+body>div.list div h {
+	display: block;
+	font-size: 18px;
+	font-weight: 700;
+	text-transform: uppercase;
+	letter-spacing: 1px
+}
+
+body>div.list div h tag {
+	float: right;
+	background: rgba(0, 0, 0, .04);
+	font-size: 10px;
+	line-height: 17px;
+	display: inline-block;
+	vertical-align: middle;
+	padding: 0 5px;
+	border-radius: 4px;
+	font-weight: 400;
+	cursor: pointer;
+	letter-spacing: 1px;
+	text-transform: uppercase;
+	margin-left: 10px
+}
+
+body>div.list div h tag.approval {
+	float: none;
+}
+
+body>div.list div h tag+tag {
+	margin-left: 10px
+}
+
+body>div.list div t {
+	display: block;
+	margin: 5px -10px;
+	font-size: 14px;
+	padding: 10px;
+	background: rgba(0, 0, 0, .04);
+	color: rgba(0, 0, 0, .7);
+}
+
+body>div.list div t+t {
+	margin-top: -4px;
+	font-size: 12px
+}
+
+body>div.list src {
+	text-transform: lowercase;
+	font-size: 10px;
+	vertical-align: middle;
+	display: inline-block;
+	float: right;
+	cursor: pointer
+}
+
+body>div.list div t svg.icon {
+	position: static;
+	vertical-align: middle;
+	height: 20px;
+	width: 20px;
+	margin: 0 5px 0 0
+}
+
+body>div.list div f {
+	display: block;
+	height: 17px;
+	margin-top: 10px
+}
+
+body>div.list div f tag {
+	padding: 0;
+	opacity: .6;
+	font-size: 10px;
+	line-height: 17px;
+	display: inline-block;
+	vertical-align: middle;
+	cursor: pointer;
+	letter-spacing: 1px;
+	text-transform: uppercase
+}
+
+body>div.list div f tag+tag {
+	margin-left: 20px;
+	line-height: 21px;
+	letter-spacing: .3px
+}
