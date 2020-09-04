@@ -147,7 +147,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 				</svg>
 			</button>
 		</div>
-		<a href="https://github.com/Cog-Creators/Red-DiscordBot"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub"></a>
+		<a href="https://github.com/Cog-Creators/Cog-Browser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub"></a>
 		<script>
 			$(document).ready(function(){
 					$('[href]').click(function(){
