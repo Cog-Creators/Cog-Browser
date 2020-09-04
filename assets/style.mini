@@ -4,7 +4,7 @@
 
 body {
 	background-color: #020202;
-	background-image: url(/uC21aXJ7yQs.jpg?4);
+	background-image: url(/assets/wall.jpg);
 	background-position: top;
 	background-repeat: no-repeat;
 	background-size: contain;
