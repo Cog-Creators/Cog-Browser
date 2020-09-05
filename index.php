@@ -134,7 +134,9 @@ $cog_chunks = array_chunk($cogs, $per_page);
 				</svg>
 				Previous
 			</button>
-			<page>Page <?php print($page);?> of <?php print(count($cog_chunks)); ?></page>
+			<?php if(count($cog_chunks) >= 1){?>
+  <page>Page <?php print($page);?> of <?php print(count($cog_chunks)); ?></page>
+<?php } ?>
 
 			<button class="right <?php if(count($cog_chunks) <= $page){?>hidden<?php }?>" href="?p=<?php print($page + 1);?>&filter=<?php print($filter);?>&ua=<?php print($show_ua);?>">
 				Next
