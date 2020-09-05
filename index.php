@@ -16,6 +16,7 @@ if(isset($_GET['p'])){
 
 }
 
+//Testing
 
 $json = json_decode(implode(" ", file('https://raw.githubusercontent.com/Cog-Creators/Red-Index/master/index/1-min.json')), TRUE);
 $cogs = array();
