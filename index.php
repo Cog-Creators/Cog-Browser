@@ -17,7 +17,7 @@ if(isset($_GET['p'])){
 }
 
 
-$json = json_decode(implode(" ", file('https://raw.githubusercontent.com/Cog-Creators/Red-Index/master/index/1.json')), TRUE);
+$json = json_decode(implode(" ", file('https://raw.githubusercontent.com/Cog-Creators/Red-Index/master/index/1-min.json')), TRUE);
 $cogs = array();
 foreach($json as $source => $sourceData){
 	foreach($sourceData['rx_cogs'] as $cogId => $cog){
