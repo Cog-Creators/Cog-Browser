@@ -7,7 +7,7 @@ body {
 	background-image: url('wall.jpg');
 	background-position: top;
 	background-repeat: no-repeat;
-	background-size: contain;
+	background-size: 100%;
 	margin-top: 4vw;
 	padding: 40px;
 	font-family: Roboto, sans-serif;
