@@ -67,7 +67,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 	</head>
 	<body>
 		<div class="nav top">
-			<logo href="?">Red<t>Discord Bot - Cog Index</t></logo>
+			<logo href="?">Red<t>Discord Bot Test - Cog Index</t></logo>
 			<button href="https://github.com/Cog-Creators/Red-DiscordBot#installation">Installation</button>
 			<button href="http://red-discordbot.readthedocs.io/en/stable/index.html">Documentation</button>
 			<button href="https://discord.gg/red">Join Discord</button>
