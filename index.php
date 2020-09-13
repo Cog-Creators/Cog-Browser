@@ -86,6 +86,10 @@ $cog_chunks = array_chunk($cogs, $per_page);
 				</button>
 			</form>
 		</div>
+		<?php if($show_ua == "1") ?>
+			<div class="ua-warning">The content of unapproved repositories has not been vetted by QA<br>Please take extra caution if you decide to install their content</div>
+		}
+		<?php endif; ?>
 		<div class="filters">
 			<box href="?filter=<?php print($filter);?>&ua=<?php if($show_ua === '1'){print('0');}else{print('1');}?>"><svg class="icon" viewBox="0 0 20 20">
 				<?php if($show_ua === '1'){ ?>
@@ -93,7 +97,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 				<?php }else{ ?>
 					<path fill-rule="evenodd" d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
 				<?php } ?>
-			</svg>Include UnApproved</box>
+			</svg>Include Unapproved</box>
 		</div>
 		<div class="list">
 			<?php if(!isset($cog_chunks[$page - 1])){ ?>

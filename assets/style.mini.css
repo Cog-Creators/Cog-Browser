@@ -2,6 +2,15 @@
 	visibility: hidden
 }
 
+.ua-warning {
+	text-align: center;
+	font-weight: bold;
+	text-transform: uppercase;
+	background: rgba(109, 38, 28, 0.64);
+	padding: 10px;
+	color: white;
+}
+
 body {
 	background-color: #020202;
 	background-image: url('wall.jpg');
