@@ -43,8 +43,8 @@ foreach($json as $source => $sourceData){
 		if(count($cog['author']) == 0){ continue; } # ghost entries
 		foreach($cog['tags'] as $index => $this_tag){$cog['tags'][$index] = strtolower($this_tag);}
 		if($filter && !in_array(strtolower($filter), $cog['tags'])){ continue; }
-		if($search && strpos($cog['id'], $search) === false){
-			if(strpos($cog['description'] ?: $cog['short'], $search) === false){
+		if($search && strpos(strtolower($cog['id']), strtolower($search)) === false){
+			if(strpos(strtolower($cog['description'] ?: $cog['short']), strtolower($search)) === false){
 				continue;
 			}
 		}
