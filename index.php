@@ -87,7 +87,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 			</form>
 		</div>
 		<?php if ($show_ua == "1"): ?>
-			<div class="ua-warning">The content of unapproved repositories has not been vetted by QA<br>Please take extra caution if you decide to install their content</div>
+			<div class="ua-warning">The content of unapproved repositories has not been vetted by QA<br>Safety is not guaranteed. Use at your own risk</div>
 		<?php endif; ?>
 		<div class="filters">
 			<box href="?filter=<?php print($filter);?>&ua=<?php if($show_ua === '1'){print('0');}else{print('1');}?>"><svg class="icon" viewBox="0 0 20 20">
