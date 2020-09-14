@@ -44,7 +44,7 @@ foreach($json as $source => $sourceData){
 		foreach($cog['tags'] as $index => $this_tag){$cog['tags'][$index] = strtolower($this_tag);}
 		if($filter && !in_array(strtolower($filter), $cog['tags'])){ continue; }
 		if($search && strpos(strtolower($cog['id']), strtolower($search)) === false){
-			if(strpos(strtolower($cog['description'] ?: $cog['short']), strtolower($search)) === false && strpos($cog['id'], strtolower($search)) === false && !in_array(strtolower($search), $cog['tags'])){
+			if(strpos(strtolower($cog['description'] ?: $cog['short']), strtolower($search)) === false && !in_array(strtolower($search), $cog['tags'])){
                 continue;
 			}
 		}
