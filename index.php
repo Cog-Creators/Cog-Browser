@@ -64,6 +64,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 		<link href="https://fonts.googleapis.com/css2?family=Merienda&family=Roboto:wght@500&family=Space+Mono&display=swap" rel="stylesheet">
 		<script src="assets/jquery-3.5.1.slim.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="assets/style.mini.css?<?php print(microtime(TRUE)); ?>">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
 	<body>
 		<div class="nav top">
