@@ -1,5 +1,5 @@
 <?php
-$per_page = 50;
+$per_page = 25;
 $show_ua = @preg_replace('/[^10]/', '', $_GET['ua']) ?: '0';
 $filter = @preg_replace('/[^-a-zA-Z0-9_]/', '', $_GET['filter']);
 if(isset($_GET['p'])){
@@ -66,7 +66,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 		<link rel="stylesheet" type="text/css" href="assets/style.mini.css?<?php print(microtime(TRUE)); ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
-	<body>
+	<body model="">
 		<div class="nav top">
 			<logo href="?">Red<t>Discord Bot - Cog Index</t></logo>
 			<button href="https://github.com/Cog-Creators/Red-DiscordBot#installation">Installation</button>
@@ -87,11 +87,11 @@ $cog_chunks = array_chunk($cogs, $per_page);
 				</button>
 			</form>
 		</div>
-		<?php if ($show_ua == "1"): ?>
+		<?php if ($show_ua == "1"){ ?>
 			<div class="ua-warning">The content of unapproved repositories has not been vetted by QA<br>Safety is not guaranteed. Use at your own risk</div>
-		<?php endif; ?>
+		<?php } ?>
 		<div class="filters">
-			<box href="?filter=<?php print($filter);?>&ua=<?php if($show_ua === '1'){print('0');}else{print('1');}?>"><svg class="icon" viewBox="0 0 20 20">
+			<box <?php if($show_ua === '1'){?>href="?filter=<?php print($filter);?>&ua=0"<?php }else{?>show-model="uadisclaim"<?php } ?>><svg class="icon" viewBox="0 0 20 20">
 				<?php if($show_ua === '1'){ ?>
 					<path fill-rule="evenodd" d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm10.03 4.97a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"></path>
 				<?php }else{ ?>
@@ -100,6 +100,12 @@ $cog_chunks = array_chunk($cogs, $per_page);
 			</svg>Include Unapproved</box>
 		</div>
 		<div class="list">
+			<div class="model" model="uadisclaim">
+				<h><svg class="icon" viewBox="0 0 20 23">
+					<path d="M18.344,16.174l-7.98-12.856c-0.172-0.288-0.586-0.288-0.758,0L1.627,16.217c0.339-0.543-0.603,0.668,0.384,0.682h15.991C18.893,16.891,18.167,15.961,18.344,16.174 M2.789,16.008l7.196-11.6l7.224,11.6H2.789z M10.455,7.552v3.561c0,0.244-0.199,0.445-0.443,0.445s-0.443-0.201-0.443-0.445V7.552c0-0.245,0.199-0.445,0.443-0.445S10.455,7.307,10.455,7.552M10.012,12.439c-0.733,0-1.33,0.6-1.33,1.336s0.597,1.336,1.33,1.336c0.734,0,1.33-0.6,1.33-1.336S10.746,12.439,10.012,12.439M10.012,14.221c-0.244,0-0.443-0.199-0.443-0.445c0-0.244,0.199-0.445,0.443-0.445s0.443,0.201,0.443,0.445C10.455,14.021,10.256,14.221,10.012,14.221"></path></svg>Warning: Use at your own risk!</h>
+				<t>Unapproved repositories are provided by the community and have not been inspected for security or tested for stability. The author of Red and contributors are not responsible for and damage caused by 3rd party cogs.</t>
+				<f><button hide-model="true">Nevermind</button><button class="right red" href="?filter=<?php print($filter);?>&ua=1">I understand and accept the risks</button></f>
+			</div>
 			<?php if(!isset($cog_chunks[$page - 1])){ ?>
 				<div>
 					<t><center>There are no cogs on this page.</center></t>
@@ -162,6 +168,12 @@ $cog_chunks = array_chunk($cogs, $per_page);
 						window.location.href = $(this).attr('href');
 					});
 					$('.submit').click(function(){ $('#search').submit();});
+					$('[show-model]').click(function(){
+						$('body').attr('model', $(this).attr('show-model'));
+					});
+					$('[hide-model]').click(function(){
+						$('body').attr('model', '');
+					});
 			});
 		</script>
 	</body>
