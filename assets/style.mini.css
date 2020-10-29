@@ -130,7 +130,7 @@ body>div.nav.top .nav-link {
     padding: 1px 6px;
 }
 
-body>div.nav .nav-link.right {
+body>div.nav a.right {
 	width: auto;
 	min-width: 35px;
 	float: right;
@@ -141,13 +141,13 @@ body>div.nav .nav-link.right {
 	font-size: 12px
 }
 
-body>div.nav .nav-link.right svg.icon {
+body>div.nav a.right svg.icon {
 	position: absolute;
 	right: 4px;
 	left: auto
 }
 
-body>div.nav .nav-link.left {
+body>div.nav a.left {
 	float: left;
 	width: auto;
 	min-width: 35px;
