@@ -70,11 +70,11 @@ $cog_chunks = array_chunk($cogs, $per_page);
 	</head>
 	<body model="">
 		<div class="nav top">
-			<logo href="?">Red<t>Discord Bot - Cog Index</t></logo>
-			<button href="https://github.com/Cog-Creators/Red-DiscordBot#installation">Installation</button>
-			<button href="http://red-discordbot.readthedocs.io/en/stable/index.html">Documentation</button>
-			<button href="https://discord.gg/red">Join Discord</button>
-			<button href="https://red-discordbot.readthedocs.io/en/stable/guide_cog_creation.html">Build Your Own Cog</button>
+			<a id="logo" href="?">Red<t>Discord Bot - Cog Index</t></a>
+			<a class="nav-link" href="https://github.com/Cog-Creators/Red-DiscordBot#installation">Installation</a>
+			<a class="nav-link" href="http://red-discordbot.readthedocs.io/en/stable/index.html">Documentation</a>
+			<a class="nav-link" href="https://discord.gg/red">Join Discord</a>
+			<a class="nav-link" href="https://red-discordbot.readthedocs.io/en/stable/guide_cog_creation.html">Build Your Own Cog</a>
 		</div>
 		<div class="search">
 			<form id="search" method="post" action="?filter=<?php print($filter);?>&ua=<?php print($show_ua);?>">
@@ -132,12 +132,12 @@ $cog_chunks = array_chunk($cogs, $per_page);
 					<t><svg class="icon" viewBox="0 0 16 19">
 						<path fill-rule="evenodd" d="M0 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V6zm13 .25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zM2.25 8a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 3 8.75v-.5A.25.25 0 0 0 2.75 8h-.5zM4 8.25A.25.25 0 0 1 4.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 4 8.75v-.5zM6.25 8a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 7 8.75v-.5A.25.25 0 0 0 6.75 8h-.5zM8 8.25A.25.25 0 0 1 8.25 8h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 8 8.75v-.5zM13.25 8a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5zm0 2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5zm-3-2a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h1.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-1.5zm.75 2.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zM11.25 6a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-.5zM9 6.25A.25.25 0 0 1 9.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 9 6.75v-.5zM7.25 6a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h.5A.25.25 0 0 0 8 6.75v-.5A.25.25 0 0 0 7.75 6h-.5zM5 6.25A.25.25 0 0 1 5.25 6h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5A.25.25 0 0 1 5 6.75v-.5zM2.25 6a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h1.5A.25.25 0 0 0 4 6.75v-.5A.25.25 0 0 0 3.75 6h-1.5zM2 10.25a.25.25 0 0 1 .25-.25h.5a.25.25 0 0 1 .25.25v.5a.25.25 0 0 1-.25.25h-.5a.25.25 0 0 1-.25-.25v-.5zM4.25 10a.25.25 0 0 0-.25.25v.5c0 .138.112.25.25.25h5.5a.25.25 0 0 0 .25-.25v-.5a.25.25 0 0 0-.25-.25h-5.5z"></path>
 					</svg><b>Installation commands</b><l>repo add <?php print(strtolower($cog['source_name'])); ?> <?php print($cog['source']);?> <?php print($cog['rx_branch']);?></l><l>cog install <?php print(strtolower($cog['source_name'])); ?> <?php print($cog['id']); ?></l></t>
-					<f><?php sort($cog['tags']);foreach($cog['tags'] as $tag){?><tag href="?filter=<?php print($tag); ?>"><?php print($tag); ?></tag><?php }?><src href="<?php print($cog['source']);?>">View Repository</src></f>
+					<f><?php sort($cog['tags']);foreach($cog['tags'] as $tag){?><tag href="?filter=<?php print($tag); ?>"><?php print($tag); ?></tag><?php }?><a class="src-link" href="<?php print($cog['source']);?>">View Repository</a></f>
 				</div>
 			<?php }} ?>
 		</div>
 		<div class="nav bottom">
-			<button class="left <?php if($page <= 1){?>hidden<?php }?>" href="?p=<?php print($page - 1);?>&filter=<?php print($filter);?>&ua=<?php print($show_ua);?>">
+			<a class="left <?php if($page <= 1){?>hidden<?php }?>" href="?p=<?php print($page - 1);?>&filter=<?php print($filter);?>&ua=<?php print($show_ua);?>">
 				<svg class="icon" viewBox="0 0 20 20">
 					<path d="M18.271,9.212H3.615l4.184-4.184c0.306-0.306,0.306-0.801,0-1.107c-0.306-0.306-0.801-0.306-1.107,0
 	L1.21,9.403C1.194,9.417,1.174,9.421,1.158,9.437c-0.181,0.181-0.242,0.425-0.209,0.66c0.005,0.038,0.012,0.071,0.022,0.109
@@ -146,12 +146,12 @@ $cog_chunks = array_chunk($cogs, $per_page);
 	S18.707,9.212,18.271,9.212z"></path>
 				</svg>
 				Previous
-			</button>
+			</a>
 			<?php if(count($cog_chunks) >= 1){?>
   <page>Page <?php print($page);?> of <?php print(count($cog_chunks)); ?></page>
 <?php } ?>
 
-			<button class="right <?php if(count($cog_chunks) <= $page){?>hidden<?php }?>" href="?p=<?php print($page + 1);?>&filter=<?php print($filter);?>&ua=<?php print($show_ua);?>">
+			<a class="right <?php if(count($cog_chunks) <= $page){?>hidden<?php }?>" href="?p=<?php print($page + 1);?>&filter=<?php print($filter);?>&ua=<?php print($show_ua);?>">
 				Next
 				<svg class="icon" viewBox="0 0 20 20">
 					<path d="M1.729,9.212h14.656l-4.184-4.184c-0.307-0.306-0.307-0.801,0-1.107c0.305-0.306,0.801-0.306,1.106,0
@@ -160,7 +160,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 	c-0.306,0.307-0.802,0.307-1.106,0c-0.307-0.305-0.307-0.801,0-1.105l4.184-4.185H1.729c-0.436,0-0.788-0.353-0.788-0.788
 	S1.293,9.212,1.729,9.212z"></path>
 				</svg>
-			</button>
+			</a>
 		</div>
 		<a href="https://github.com/Cog-Creators/Cog-Browser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub"></a>
 		<script>
