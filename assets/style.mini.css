@@ -106,7 +106,8 @@ body>div.nav.top #logo {
 	font-family: Merienda;
 	color: #6d261c;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, .68);
-	cursor: pointer
+	cursor: pointer;
+    text-decoration: none;
 }
 
 body>div.nav.top #logo t {
@@ -115,7 +116,16 @@ body>div.nav.top #logo t {
 }
 
 body>div.nav.top .nav-link {
-	width: auto
+    position: relative;
+    height: 35px;
+    width: auto;
+    background: 0 0;
+    border: none;
+    cursor: pointer;
+    opacity: .6;
+    border-radius: 3px;
+    color: #150000;
+    text-decoration: none;
 }
 
 body>div.nav .nav-link.right {
@@ -323,7 +333,9 @@ body>div.list a.src-link {
 	vertical-align: middle;
 	display: inline-block;
 	float: right;
-	cursor: pointer
+	cursor: pointer;
+    text-decoration: none
+    color: black;
 }
 
 body>div.list div t svg.icon {
