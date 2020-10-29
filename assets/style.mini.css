@@ -200,6 +200,11 @@ body>div.nav.bottom {
 	font-size: 12px
 }
 
+body>div.nav.bottom a {
+	opacity: .6;
+	text-decoration: none;
+}
+
 body>div.nav.bottom svg.icon {
     fill: #FFF;
 }
