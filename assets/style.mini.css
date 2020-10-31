@@ -98,7 +98,7 @@ body>div.nav.top {
 	margin-bottom: 10px
 }
 
-body>div.nav.top logo {
+body>div.nav.top #logo {
 	display: block;
 	padding: 5px;
 	font-size: 55px;
@@ -106,19 +106,31 @@ body>div.nav.top logo {
 	font-family: Merienda;
 	color: #6d261c;
 	text-shadow: 1px 1px 2px rgba(0, 0, 0, .68);
-	cursor: pointer
+	cursor: pointer;
+    text-decoration: none;
 }
 
-body>div.nav.top logo t {
+body>div.nav.top #logo t {
 	display: block;
 	font-size: 20px
 }
 
-body>div.nav.top button {
-	width: auto
+body>div.nav.top .nav-link {
+    position: relative;
+    height: 35px;
+    width: auto;
+    background: 0 0;
+    border: none;
+    cursor: pointer;
+    opacity: .6;
+    border-radius: 3px;
+    color: #150000;
+    text-decoration: none;
+    font-size: 13px;
+    padding: 1px 6px;
 }
 
-body>div.nav button.right {
+body>div.nav a.right {
 	width: auto;
 	min-width: 35px;
 	float: right;
@@ -129,13 +141,13 @@ body>div.nav button.right {
 	font-size: 12px
 }
 
-body>div.nav button.right svg.icon {
+body>div.nav a.right svg.icon {
 	position: absolute;
 	right: 4px;
 	left: auto
 }
 
-body>div.nav button.left {
+body>div.nav a.left {
 	float: left;
 	width: auto;
 	min-width: 35px;
@@ -186,6 +198,11 @@ body>div.nav.bottom {
 	line-height: 35px;
 	color: #fff;
 	font-size: 12px
+}
+
+body>div.nav.bottom a {
+	opacity: .6;
+	text-decoration: none;
 }
 
 body>div.nav.bottom svg.icon {
@@ -317,13 +334,15 @@ body>div.list div t+t {
 	font-size: 12px
 }
 
-body>div.list src {
+body>div.list a.src-link {
 	text-transform: lowercase;
 	font-size: 10px;
 	vertical-align: middle;
 	display: inline-block;
-	float: right;
-	cursor: pointer
+    float: right;
+	cursor: pointer;
+	text-decoration: none;
+	color: #000000d9;
 }
 
 body>div.list div t svg.icon {
