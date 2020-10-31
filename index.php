@@ -31,7 +31,7 @@ foreach($json as $source => $sourceData){
 		$cog['rx_branch'] = $sourceData['rx_branch'];
 
 		if(!empty($cog['max_bot_version'])){
-			array_unshift($cog['requirements'], 'Bot<=' . $cog['min_bot_version']);
+			array_unshift($cog['requirements'], 'Bot<=' . $cog['max_bot_version']);
 		}
 		if(!empty($cog['min_bot_version'])){
 			array_unshift($cog['requirements'], 'Bot>=' . $cog['min_bot_version']);
