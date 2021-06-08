@@ -200,5 +200,6 @@ $cog_chunks = array_chunk($cogs, $per_page);
 					});
 			});
 		</script>
+		<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "42ef8cfa260844718cbcd6eaedd5fb88"}'></script><!-- End Cloudflare Web Analytics -->
 	</body>
 </html>
