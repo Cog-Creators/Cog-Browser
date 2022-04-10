@@ -89,6 +89,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 			<a class="nav-link" href="https://docs.discord.red/en/stable/index.html">Documentation</a>
 			<a class="nav-link" href="https://discord.gg/red">Join Discord</a>
 			<a class="nav-link" href="https://docs.discord.red/en/stable/guide_cog_creation.html">Build Your Own Cog</a>
+			<a class="nav-link" href="https://cogboard.discord.red">Cogboard</a>
 		</div>
 		<div class="search">
 			<form id="search" method="get">
