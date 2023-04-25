@@ -1,5 +1,5 @@
 :80 {
-    root * /app
+    root * /opt/index/public
     php_fastcgi app:9000
     file_server
 }

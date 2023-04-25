@@ -6,7 +6,7 @@ services:
   app:
     build: .
     volumes:
-      - ./public:/app
+      - ./public:/opt/index/public
     networks:
       - web-network
 
@@ -16,7 +16,7 @@ services:
       - "8000:80"
     volumes:
       - caddy_data:/data
-      - ./public:/app
+      - ./public:/opt/index/public
       - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       - app
