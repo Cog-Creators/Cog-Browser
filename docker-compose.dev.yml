@@ -1,0 +1,27 @@
+version: "3.9"
+networks:
+  web-network:
+
+services:
+  app:
+    build: .
+    volumes:
+      - ./public:/app
+    networks:
+      - web-network
+
+  web:
+    image: docker.io/caddy:2
+    ports:
+      - "8000:80"
+    volumes:
+      - caddy_data:/data
+      - ./public:/app
+      - ./docker/caddy/Caddyfile:/etc/caddy/Caddyfile
+    depends_on:
+      - app
+    networks:
+      - web-network
+
+volumes:
+  caddy_data:
