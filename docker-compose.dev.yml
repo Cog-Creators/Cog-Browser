@@ -4,7 +4,9 @@ networks:
 
 services:
   app:
-    build: .
+    build:
+      context: .
+      target: dev
     volumes:
       - ./public:/opt/index/public
     networks:
