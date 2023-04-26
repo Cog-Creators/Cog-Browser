@@ -270,7 +270,6 @@ $cog_chunks = array_chunk($cogs, $per_page);
 	<head>
 		<title>Red Discord Bot - Cog Index</title>
 		<link href="https://fonts.googleapis.com/css2?family=Merienda&family=Roboto:wght@500&family=Space+Mono&display=swap" rel="stylesheet">
-		<script src="assets/jquery-3.5.1.slim.min.js"></script>
 		<link rel="stylesheet" type="text/css" href="assets/style.mini.css?<?= microtime(TRUE) ?>">
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 	</head>
@@ -302,7 +301,7 @@ $cog_chunks = array_chunk($cogs, $per_page);
 				<?php
 				}
 				?>
-				<button class="submit">
+				<button type="submit">
 					<svg class="icon" viewBox="0 0 20 20">
 						<path d="M14.989,9.491L6.071,0.537C5.78,0.246,5.308,0.244,5.017,0.535c-0.294,0.29-0.294,0.763-0.003,1.054l8.394,8.428L5.014,18.41c-0.291,0.291-0.291,0.763,0,1.054c0.146,0.146,0.335,0.218,0.527,0.218c0.19,0,0.382-0.073,0.527-0.218l8.918-8.919C15.277,10.254,15.277,9.784,14.989,9.491z"></path>
 					</svg>
@@ -384,18 +383,21 @@ $cog_chunks = array_chunk($cogs, $per_page);
 		</div>
 		<a href="https://github.com/Cog-Creators/Cog-Browser"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub"></a>
 		<script>
-			$(document).ready(function(){
-					$('[href]').click(function(){
-						$(this).addClass('loading');
-						window.location.href = $(this).attr('href');
-					});
-					$('.submit').click(function(){ $('#search').submit();});
-					$('[show-model]').click(function(){
-						$('body').attr('model', $(this).attr('show-model'));
-					});
-					$('[hide-model]').click(function(){
-						$('body').attr('model', '');
-					});
+			document.addEventListener('click', (event) => {
+				let match;
+				match = event.target.closest('[href]');
+				if (match) {
+					match.classList.add('loading');
+					window.location.href = match.getAttribute('href');
+				}
+				match = event.target.closest('[show-model]');
+				if (match) {
+					document.body.setAttribute('model', match.getAttribute('show-model'));
+				}
+				match = event.target.closest('[hide-model]');
+				if (match) {
+					document.body.setAttribute('model', '');
+				}
 			});
 		</script>
 		<!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "42ef8cfa260844718cbcd6eaedd5fb88"}'></script><!-- End Cloudflare Web Analytics -->
