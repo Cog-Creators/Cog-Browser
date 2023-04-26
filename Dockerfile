@@ -1,4 +1,4 @@
-FROM docker.io/php:7.4-fpm AS base
+FROM docker.io/php:8.2-fpm AS base
 
 COPY ./public /opt/index/public
 
