@@ -312,7 +312,11 @@ $page = intval(preg_replace('/[^0-9]/', '', getString($_GET, 'p'))) ?: 1;
 $sort_by = SortCriteria::tryFrom(getString($_GET, 'sort_by') ?: '') ?? SortCriteria::Names;
 $sort_direction = SortDirection::tryFrom(getString($_GET, 'sort_direction') ?: '') ?? $sort_by->getDefaultSortDirection();
 
-$json = json_decode(implode(" ", file('https://raw.githubusercontent.com/Cog-Creators/Red-Index/master/index/1-min.json')), TRUE);
+$red_index_url = getenv("RED_INDEX_URL", true);
+if (!$red_index_url) {
+	$red_index_url = 'https://raw.githubusercontent.com/Cog-Creators/Red-Index/master/index';
+}
+$json = json_decode(implode(" ", file($red_index_url . '/1-min.json')), TRUE);
 $cogs = [];
 foreach ($json as $source => $sourceData) {
 	$repo_url = explode('@', $source, 2)[0];
