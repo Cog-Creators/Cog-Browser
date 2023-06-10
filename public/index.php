@@ -26,6 +26,13 @@ function getDateTime(array $data, string $key) : DateTimeImmutable {
 	throw ValueError('"' . $key . '" key not available in the array.');
 }
 
+function getNullableDateTime(array $data, string $key) : ?DateTimeImmutable {
+	if (array_key_exists($key, $data) && is_null($data[$key])) {
+		return null;
+	}
+	return getDateTime($data, $key);
+}
+
 function getString(array $data, string $key, string $default = '') : string {
 	if (isset($data[$key]) && is_string($data[$key])) {
 		return $data[$key];
@@ -138,6 +145,8 @@ class Repo
 		public string $url,
 		public string $name,
 		public RepoCategory $category,
+		public DateTimeImmutable $added_at,
+		public ?DateTimeImmutable $approved_at,
 		public string $branch = '',
 		public array $cogs = [],
 	) {}
@@ -149,6 +158,8 @@ class Repo
 				url: $url,
 				name: getOrThrow($data, 'name'),
 				category: $category,
+				added_at: getDateTime($data, 'rx_added_at'),
+				approved_at: getOptionalDateTime($data, 'rx_approved_at'),
 				branch: $data['rx_branch'] ?? '',
 			);
 		} catch (TypeError) {
@@ -230,8 +241,8 @@ class Cog
 			name: $name,
 			repo: $repo,
 			type: $type,
-			added_at: getDateTime($data, 'rx_added_at'),
-			last_updated_at: getDateTime($data, 'rx_last_updated_at'),
+			added_at: max(getDateTime($data, 'rx_added_at'), $repo->approved_at),
+			last_updated_at: max(getDateTime($data, 'rx_last_updated_at'), $repo->approved_at),
 			author: getArrayOfStrings($data, 'author'),
 			short: getString($data, 'short'),
 			description: getString($data, 'description'),
