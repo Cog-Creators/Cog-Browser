@@ -5,14 +5,14 @@ function getOrThrow(array $data, string $key) : mixed {
 	if (isset($data[$key])) {
 		return $data[$key];
 	}
-	throw ValueError('"' . $key . '" key not available in the array.');
+	throw new ValueError('"' . $key . '" key not available in the array.');
 }
 
 function getWithVerifiedType(array $data, string $key) : mixed {
 	if (isset($data[$key])) {
 		return $data[$key];
 	}
-	throw ValueError('"' . $key . '" key not available in the array.');
+	throw new ValueError('"' . $key . '" key not available in the array.');
 }
 
 function getString(array $data, string $key, string $default = '') : string {
