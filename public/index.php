@@ -17,7 +17,7 @@ function getWithVerifiedType(array $data, string $key) : mixed {
 
 function getDateTime(array $data, string $key) : DateTimeImmutable {
 	if (isset($data[$key])) {
-		$date = DateTimeImmutable::createFromFormat(DateTimeInterface::ATOM, $data[$key]);
+		$date = DateTimeImmutable::createFromFormat(DateTimeInterface::RFC3339_EXTENDED, $data[$key]);
 		if ($date === false) {
 			throw new ValueError('"' . $key . '" key is not a valid ISO8601 datetime.');
 		}
