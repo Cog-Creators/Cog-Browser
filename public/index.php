@@ -261,7 +261,7 @@ foreach ($json as $source => $sourceData) {
 	}
 }
 
-usort($cogs, fn($a, $b) => $a->name <= $b->name ? -1 : 1);
+usort($cogs, fn($a, $b) => strnatcasecmp($a->name, $b->name));
 $cog_chunks = array_chunk($cogs, $per_page);
 
 ?>
