@@ -5,25 +5,25 @@ function getOrThrow(array $data, string $key) : mixed {
 	if (isset($data[$key])) {
 		return $data[$key];
 	}
-	throw ValueError('"' . $key . '" key not available in the array.');
+	throw new ValueError('"' . $key . '" key not available in the array.');
 }
 
 function getWithVerifiedType(array $data, string $key) : mixed {
 	if (isset($data[$key])) {
 		return $data[$key];
 	}
-	throw ValueError('"' . $key . '" key not available in the array.');
+	throw new ValueError('"' . $key . '" key not available in the array.');
 }
 
 function getDateTime(array $data, string $key) : DateTimeImmutable {
 	if (isset($data[$key])) {
 		$date = DateTimeImmutable::createFromFormat(DateTimeInterface::ISO8601, $data[$key]);
 		if ($date === false) {
-			throw ValueError('"' . $key . '" key is not a valid ISO8601 datetime.');
+			throw new ValueError('"' . $key . '" key is not a valid ISO8601 datetime.');
 		}
 		return $date;
 	}
-	throw ValueError('"' . $key . '" key not available in the array.');
+	throw new ValueError('"' . $key . '" key not available in the array.');
 }
 
 function getNullableDateTime(array $data, string $key) : ?DateTimeImmutable {
