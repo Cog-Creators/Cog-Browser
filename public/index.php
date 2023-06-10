@@ -333,7 +333,12 @@ $cog_chunks = array_chunk($cogs, $per_page);
 				</div>
 			<?php }else{ foreach($cog_chunks[$page - 1] as $cog){ ?>
 				<div>
-					<h><?= $cog->name ?><tag class="approval<?php if ($cog->repo->category === RepoCategory::Approved) { ?> active<?php } ?>"><?= $cog->repo->category->name ?></tag> <?php foreach($cog->author as $authorName){?><tag>@<?= $authorName ?></tag><?php }?></h>
+					<h>
+						<?= $cog->name ?><tag class="approval<?php if ($cog->repo->category === RepoCategory::Approved) { ?> active<?php } ?>"><?= $cog->repo->category->name ?></tag>
+						<authors>
+							<?php foreach($cog->author as $authorName){?><tag>@<?= $authorName ?></tag><?php }?>
+						</authors>
+					</h>
 					<t><i><?= nl2br(htmlentities($cog->description ?: $cog->short)) ?></i></t>
 					<?php if ($cog->endUserDataStatement) { ?>
 						<t><svg class="icon" viewBox="0 0 20 20">

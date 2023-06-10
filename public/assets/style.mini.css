@@ -290,8 +290,12 @@ body>div.list div h {
 	letter-spacing: 1px
 }
 
-body>div.list div h tag {
+body>div.list div h authors {
 	float: right;
+	line-height: 17px;
+}
+
+body>div.list div h tag {
 	background: rgba(0, 0, 0, .04);
 	font-size: 10px;
 	line-height: 17px;
@@ -307,13 +311,12 @@ body>div.list div h tag {
 }
 
 body>div.list div h tag.approval {
-	float: none;
+	margin-top: -4px;
 }
 
 body>div.list div h tag.approval.active {
     background: #8aa67d;
     color: #FFF;
-    margin-top: -4px;
 }
 
 body>div.list div h tag+tag {
