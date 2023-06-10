@@ -1,0 +1,6 @@
+services:
+  app:
+    environment:
+      RED_INDEX_URL: /opt/red-index
+    volumes:
+      - /home/ubuntu/work/Red-Index/index:/opt/red-index

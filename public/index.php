@@ -210,7 +210,11 @@ $search = preg_replace('/[^-a-zA-Z0-9 ]/', '', getString($_GET, 'search'));
 $filter_tag = strtolower(preg_replace('/[^-a-zA-Z0-9_]/', '', getString($_GET, 'filter_tag')));
 $page = intval(preg_replace('/[^0-9]/', '', getString($_GET, 'p'))) ?: 1;
 
-$json = json_decode(implode(" ", file('https://raw.githubusercontent.com/Cog-Creators/Red-Index/master/index/1-min.json')), TRUE);
+$red_index_url = getenv("RED_INDEX_URL", true);
+if (!$red_index_url) {
+	$red_index_url = 'https://raw.githubusercontent.com/Cog-Creators/Red-Index/master/index';
+}
+$json = json_decode(implode(" ", file($red_index_url . '/1-min.json')), TRUE);
 $cogs = [];
 foreach ($json as $source => $sourceData) {
 	$repo_url = explode('@', $source, 2)[0];
