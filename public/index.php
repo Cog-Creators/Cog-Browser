@@ -94,15 +94,23 @@ enum SortCriteria : string
 				break;
 			case static::AdditionTime:
 				if ($direction === SortDirection::Asc) {
-					return fn($a, $b) => datetimecmp($a->added_at, $b->added_at);
+					return fn($a, $b) =>
+						datetimecmp($a->added_at, $b->added_at)
+						|| strnatcasecmp($a->name, $b->name);
 				}
-				return fn($a, $b) => -datetimecmp($a->added_at, $b->added_at);
+				return fn($a, $b) =>
+					-datetimecmp($a->added_at, $b->added_at)
+					|| -strnatcasecmp($a->name, $b->name);
 				break;
 			case static::UpdateTime:
 				if ($direction === SortDirection::Asc) {
-					return fn($a, $b) => datetimecmp($a->last_updated_at, $b->last_updated_at);
+					return fn($a, $b) =>
+						datetimecmp($a->last_updated_at, $b->last_updated_at)
+						|| strnatcasecmp($a->name, $b->name);
 				}
-				return fn($a, $b) => -datetimecmp($a->last_updated_at, $b->last_updated_at);
+				return fn($a, $b) =>
+					-datetimecmp($a->last_updated_at, $b->last_updated_at)
+					|| -strnatcasecmp($a->name, $b->name);
 				break;
 		}
 	}
