@@ -159,7 +159,7 @@ class Repo
 				name: getOrThrow($data, 'name'),
 				category: $category,
 				added_at: getDateTime($data, 'rx_added_at'),
-				approved_at: getOptionalDateTime($data, 'rx_approved_at'),
+				approved_at: getNullableDateTime($data, 'rx_approved_at'),
 				branch: $data['rx_branch'] ?? '',
 			);
 		} catch (TypeError) {
