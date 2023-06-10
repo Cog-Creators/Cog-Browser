@@ -15,6 +15,17 @@ function getWithVerifiedType(array $data, string $key) : mixed {
 	throw ValueError('"' . $key . '" key not available in the array.');
 }
 
+function getDateTime(array $data, string $key) : DateTimeImmutable {
+	if (isset($data[$key])) {
+		$date = DateTimeImmutable::createFromFormat(DateTimeInterface::ISO8601, $data[$key]);
+		if ($date === $false) {
+			throw ValueError('"' . $key . '" key is not a valid ISO8601 datetime.');
+		}
+		return $date;
+	}
+	throw ValueError('"' . $key . '" key not available in the array.');
+}
+
 function getString(array $data, string $key, string $default = '') : string {
 	if (isset($data[$key]) && is_string($data[$key])) {
 		return $data[$key];
@@ -43,6 +54,58 @@ function getArrayOfStrings(array $data, string $key) : array {
 		}
 	}
 	return $output;
+}
+
+function datetimecmp($a, $b) {
+	if ($a === $b) {
+		return 0;
+	}
+	return $a < $b ? -1 : 1;
+}
+
+
+enum SortDirection : string
+{
+	case Asc = 'asc';
+	case Desc = 'desc';
+}
+
+
+enum SortCriteria : string
+{
+	case Names = 'names';
+	case AdditionTime = 'addition_time';
+	case UpdateTime = 'update_time';
+
+	public function getDefaultSortDirection() : SortDirection {
+		return match ($this) {
+			static::Names => SortDirection::Asc,
+			static::AdditionTime, static::UpdateTime => SortDirection::Desc,
+		};
+	}
+
+	public function getSortFunction(SortDirection $direction) : mixed {
+		switch ($this) {
+			case static::Names:
+				if ($direction === SortDirection::Asc) {
+					return fn($a, $b) => strnatcasecmp($a->name, $b->name);
+				}
+				return fn($a, $b) => -strnatcasecmp($a->name, $b->name);
+				break;
+			case static::AdditionTime:
+				if ($direction === SortDirection::Asc) {
+					return fn($a, $b) => datetimecmp($a->added_at, $b->added_at);
+				}
+				return fn($a, $b) => -datetimecmp($a->added_at, $b->added_at);
+				break;
+			case static::UpdateTime:
+				if ($direction === SortDirection::Asc) {
+					return fn($a, $b) => datetimecmp($a->last_updated_at, $b->last_updated_at);
+				}
+				return fn($a, $b) => -datetimecmp($a->last_updated_at, $b->last_updated_at);
+				break;
+		}
+	}
 }
 
 
@@ -101,6 +164,8 @@ class Cog
 		/** Cog name. */
 		public string $name,
 		public Repo $repo,
+		public DateTimeImmutable $added_at,
+		public DateTimeImmutable $last_updated_at,
 		// Optional cog information.
 		public InstallableType $type = InstallableType::Cog,
 		public array $author = [],
@@ -157,6 +222,8 @@ class Cog
 			name: $name,
 			repo: $repo,
 			type: $type,
+			added_at: getDateTime($data, 'rx_added_at'),
+			last_updated_at: getDateTime($data, 'rx_last_updated_at'),
 			author: getArrayOfStrings($data, 'author'),
 			short: getString($data, 'short'),
 			description: getString($data, 'description'),
@@ -182,6 +249,8 @@ function getURL(
 	?int $page = null,
 	?string $filter_tag = null,
 	?string $search = null,
+	?SortCriteria $sort_by = null,
+	?SortDirection $sort_direction = null,
 ) : string {
 	$params = [];
 	$show_ua ??= $GLOBALS['show_ua'];
@@ -200,6 +269,18 @@ function getURL(
 	if ($search) {
 		$params['search'] = $search;
 	}
+	$previous_sort_by = $GLOBALS['sort_by'];
+	$sort_by ??= $previous_sort_by;
+	if ($sort_by !== SortCriteria::Names) {
+		$params['sort_by'] = $sort_by->value;
+	}
+	if ($sort_direction === null && $previous_sort_by !== $sort_by) {
+		$sort_direction = $sort_by->getDefaultSortDirection();
+	}
+	$sort_direction ??= $GLOBALS['sort_direction'];
+	if ($sort_direction !== $sort_by->getDefaultSortDirection()) {
+		$params['sort_direction'] = $sort_direction->value;
+	}
 	return "/?" . http_build_query($params);
 }
 
@@ -209,6 +290,8 @@ $show_ua = getString($_GET, 'ua') === '1';
 $search = preg_replace('/[^-a-zA-Z0-9 ]/', '', getString($_GET, 'search'));
 $filter_tag = strtolower(preg_replace('/[^-a-zA-Z0-9_]/', '', getString($_GET, 'filter_tag')));
 $page = intval(preg_replace('/[^0-9]/', '', getString($_GET, 'p'))) ?: 1;
+$sort_by = SortCriteria::tryFrom(getString($_GET, 'sort_by') ?: '') ?? SortCriteria::Names;
+$sort_direction = SortDirection::tryFrom(getString($_GET, 'sort_direction') ?: '') ?? $sort_by->getDefaultSortDirection();
 
 $json = json_decode(implode(" ", file('https://raw.githubusercontent.com/Cog-Creators/Red-Index/master/index/1-min.json')), TRUE);
 $cogs = [];
@@ -261,7 +344,7 @@ foreach ($json as $source => $sourceData) {
 	}
 }
 
-usort($cogs, fn($a, $b) => strnatcasecmp($a->name, $b->name));
+usort($cogs, $sort_by->getSortFunction($sort_direction));
 $cog_chunks = array_chunk($cogs, $per_page);
 
 ?>
