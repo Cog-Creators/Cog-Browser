@@ -170,6 +170,17 @@ class Repo
 		}
 		return $repo;
 	}
+
+	public function __debugInfo() {
+		return [
+			'url' => $this->url,
+			'name' => $this->name,
+			'category' => $this->category,
+			'added_at' => $this->added_at,
+			'approved_at' => $this->approved_at,
+			'branch' => $this->branch,
+		];
+	}
 }
 
 class Cog
