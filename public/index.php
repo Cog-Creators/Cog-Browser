@@ -15,6 +15,24 @@ function getWithVerifiedType(array $data, string $key) : mixed {
 	throw new ValueError('"' . $key . '" key not available in the array.');
 }
 
+function getDateTime(array $data, string $key) : DateTimeImmutable {
+	if (isset($data[$key])) {
+		$date = DateTimeImmutable::createFromFormat("Y-m-d\\TH:i:s.uP", $data[$key]);
+		if ($date === false) {
+			throw new ValueError('"' . $key . '" key is not a valid ISO8601 datetime.');
+		}
+		return $date;
+	}
+	throw new ValueError('"' . $key . '" key not available in the array.');
+}
+
+function getNullableDateTime(array $data, string $key) : ?DateTimeImmutable {
+	if (array_key_exists($key, $data) && is_null($data[$key])) {
+		return null;
+	}
+	return getDateTime($data, $key);
+}
+
 function getString(array $data, string $key, string $default = '') : string {
 	if (isset($data[$key]) && is_string($data[$key])) {
 		return $data[$key];
@@ -45,6 +63,66 @@ function getArrayOfStrings(array $data, string $key) : array {
 	return $output;
 }
 
+function datetimecmp($a, $b) {
+	if ($a == $b) {
+		return 0;
+	}
+	return $a < $b ? -1 : 1;
+}
+
+
+enum SortDirection : string
+{
+	case Asc = 'asc';
+	case Desc = 'desc';
+}
+
+
+enum SortCriteria : string
+{
+	case Names = 'names';
+	case AdditionTime = 'addition_time';
+	case UpdateTime = 'update_time';
+
+	public function getDefaultSortDirection() : SortDirection {
+		return match ($this) {
+			static::Names => SortDirection::Asc,
+			static::AdditionTime, static::UpdateTime => SortDirection::Desc,
+		};
+	}
+
+	public function getSortFunction(SortDirection $direction) : mixed {
+		switch ($this) {
+			case static::Names:
+				if ($direction === SortDirection::Asc) {
+					return fn($a, $b) => strnatcasecmp($a->name, $b->name);
+				}
+				return fn($a, $b) => -strnatcasecmp($a->name, $b->name);
+				break;
+			case static::AdditionTime:
+				if ($direction === SortDirection::Asc) {
+					return fn($a, $b) =>
+						datetimecmp($a->added_at, $b->added_at)
+						?: strnatcasecmp($a->name, $b->name);
+				}
+				return fn($a, $b) =>
+					-datetimecmp($a->added_at, $b->added_at)
+					?: -strnatcasecmp($a->name, $b->name);
+				break;
+			case static::UpdateTime:
+				if ($direction === SortDirection::Asc) {
+					return fn($a, $b) =>
+						datetimecmp($a->last_updated_at, $b->last_updated_at)
+						?: strnatcasecmp($a->name, $b->name);
+				}
+				return fn($a, $b) =>
+					-datetimecmp($a->last_updated_at, $b->last_updated_at)
+					?: -strnatcasecmp($a->name, $b->name);
+				break;
+		}
+	}
+}
+
 
 enum RepoCategory : string
 {
@@ -67,6 +145,8 @@ class Repo
 		public string $url,
 		public string $name,
 		public RepoCategory $category,
+		public DateTimeImmutable $added_at,
+		public ?DateTimeImmutable $approved_at,
 		public string $branch = '',
 		public array $cogs = [],
 	) {}
@@ -78,6 +158,8 @@ class Repo
 				url: $url,
 				name: getOrThrow($data, 'name'),
 				category: $category,
+				added_at: getDateTime($data, 'rx_added_at'),
+				approved_at: getNullableDateTime($data, 'rx_approved_at'),
 				branch: $data['rx_branch'] ?? '',
 			);
 		} catch (TypeError) {
@@ -87,6 +169,17 @@ class Repo
 			$repo->cogs[] = Cog::fromArray($repo, $cogName, $cogData);
 		}
 		return $repo;
+	}
+
+	public function __debugInfo() {
+		return [
+			'url' => $this->url,
+			'name' => $this->name,
+			'category' => $this->category,
+			'added_at' => $this->added_at,
+			'approved_at' => $this->approved_at,
+			'branch' => $this->branch,
+		];
 	}
 }
 
@@ -101,6 +194,8 @@ class Cog
 		/** Cog name. */
 		public string $name,
 		public Repo $repo,
+		public DateTimeImmutable $added_at,
+		public DateTimeImmutable $last_updated_at,
 		// Optional cog information.
 		public InstallableType $type = InstallableType::Cog,
 		public array $author = [],
@@ -158,6 +253,8 @@ class Cog
 			name: $name,
 			repo: $repo,
 			type: $type,
+			added_at: max(getDateTime($data, 'rx_added_at'), $repo->approved_at),
+			last_updated_at: max(getDateTime($data, 'rx_last_updated_at'), $repo->approved_at),
 			author: getArrayOfStrings($data, 'author'),
 			short: getString($data, 'short'),
 			description: getString($data, 'description'),
@@ -183,6 +280,8 @@ function getURL(
 	?int $page = null,
 	?string $filter_tag = null,
 	?string $search = null,
+	?SortCriteria $sort_by = null,
+	?SortDirection $sort_direction = null,
 ) : string {
 	$params = [];
 	$show_ua ??= $GLOBALS['show_ua'];
@@ -201,6 +300,18 @@ function getURL(
 	if ($search) {
 		$params['search'] = $search;
 	}
+	$previous_sort_by = $GLOBALS['sort_by'];
+	$sort_by ??= $previous_sort_by;
+	if ($sort_by !== SortCriteria::Names) {
+		$params['sort_by'] = $sort_by->value;
+	}
+	if ($sort_direction === null && $previous_sort_by !== $sort_by) {
+		$sort_direction = $sort_by->getDefaultSortDirection();
+	}
+	$sort_direction ??= $GLOBALS['sort_direction'];
+	if ($sort_direction !== $sort_by->getDefaultSortDirection()) {
+		$params['sort_direction'] = $sort_direction->value;
+	}
 	return "/?" . http_build_query($params);
 }
 
@@ -210,6 +321,8 @@ $show_ua = getString($_GET, 'ua') === '1';
 $search = preg_replace('/[^-a-zA-Z0-9 ]/', '', getString($_GET, 'search'));
 $filter_tag = strtolower(preg_replace('/[^-a-zA-Z0-9_]/', '', getString($_GET, 'filter_tag')));
 $page = intval(preg_replace('/[^0-9]/', '', getString($_GET, 'p'))) ?: 1;
+$sort_by = SortCriteria::tryFrom(getString($_GET, 'sort_by') ?: '') ?? SortCriteria::Names;
+$sort_direction = SortDirection::tryFrom(getString($_GET, 'sort_direction') ?: '') ?? $sort_by->getDefaultSortDirection();
 
 $red_index_url = getenv("RED_INDEX_URL", true);
 if (!$red_index_url) {
@@ -266,7 +379,7 @@ foreach ($json as $source => $sourceData) {
 	}
 }
 
-usort($cogs, fn($a, $b) => strnatcasecmp($a->name, $b->name));
+usort($cogs, $sort_by->getSortFunction($sort_direction));
 $cog_chunks = array_chunk($cogs, $per_page);
 
 ?>
