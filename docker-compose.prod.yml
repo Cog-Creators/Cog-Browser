@@ -2,5 +2,6 @@ version: "3.9"
 
 services:
   app:
+    restart: always
     ports:
       - "9000:9000"
