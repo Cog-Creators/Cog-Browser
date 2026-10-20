@@ -2,3 +2,4 @@ services:
   app:
     ports:
       - "9000:9000"
+    restart: always
